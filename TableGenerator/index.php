@@ -25,6 +25,6 @@ if (mysqli_num_rows($result) > 0) {
 }
 //echo json_encode($data);
  $dataJson = json_encode(array('title'=>$data));
-print_r ($dataJson);
+echo $dataJson;
 mysqli_close($conn);
 ?>
