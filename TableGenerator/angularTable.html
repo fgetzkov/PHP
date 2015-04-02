@@ -20,7 +20,7 @@ table tr:nth-child(even) {
 
 <body>
 <div ng-app="myApp" ng-controller="customersCtrl">
-
+<input type="checkbox" ng-model="clicked"> reverse
 <table>
 	<tr>
 		<td><b>ID<b></td>
@@ -30,7 +30,7 @@ table tr:nth-child(even) {
 		<td><b> Email <b></td>
 		<td><b>Phone Number<b></td>
 	</tr>
-  <tr ng-repeat="x in users | orderBy:'Id'" ng-hide="1" id="normal">
+  <tr ng-repeat="x in users | orderBy:'Id'" ng-hide="clicked">
     <td>{{ x.Id }}</td>
     <td>{{ x.UserName }}</td>
     <td>{{ x.FirstName }}</td>
@@ -38,7 +38,7 @@ table tr:nth-child(even) {
     <td>{{ x.Email }}</td>
     <td>{{ x.PhoneNumber }}</td>
   </tr>
-  <tr ng-repeat="x in users | orderBy:'-Id'" ng-hide="1" id="reverse">
+  <tr ng-repeat="x in users | orderBy:'-Id'" ng-show="clicked">
     <td>{{ x.Id }}</td>
     <td>{{ x.UserName }}</td>
     <td>{{ x.FirstName }}</td>
@@ -47,7 +47,7 @@ table tr:nth-child(even) {
     <td>{{ x.PhoneNumber }}</td>
   </tr>
 </table>
-<button type="button" value="test">Reverse table</button>
+
 </div>
 
 <script>
@@ -55,10 +55,6 @@ var app = angular.module('myApp', []);
 app.controller('customersCtrl', function($scope, $http) {
     $http.get("http://localhost:8080/index.php")
     .success(function (data) {$scope.users =  data.title;});
-});
-//jquery
-$("button").click(function(e){
-    $("#normal");
 });
 </script>
 
