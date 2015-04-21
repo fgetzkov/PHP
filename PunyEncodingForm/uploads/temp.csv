@@ -1,0 +1,7 @@
+id,clientId,action,refund,amount,valutaDate,creationDate,objectType,objectId,objectName,period,orderTxnId,commandType,referToId,objectName
+480,reg-462972,create,,-15.00,2015-01-27T13:32:12.125Z,2015-01-27T13:32:12.125Z,domain,422-D,قارئ-جرير.بازار,P1Y,1422365532125-551086,domain.create,,xn----wmccwwda3k6c.xn--mgbab2bd
+483,reg-462972,create,,-15.00,2015-01-27T16:52:39.5Z,2015-01-27T16:52:39.5Z,domain,425-D,مازي.بازار,P1Y,1422377559005-554568,domain.create,,xn--mgbw9cwa.xn--mgbab2bd
+481,reg-462972,create,,-15.00,2015-01-27T13:32:12.646Z,2015-01-27T13:32:12.646Z,domain,423-D,جرير.بازار,P1Y,1422365532646-551088,domain.create,,xn--rgbka3h.xn--mgbab2bd
+482,reg-462972,create,,-15.00,2015-01-27T13:32:12.828Z,2015-01-27T13:32:12.828Z,domain,424-D,مكتبة-جرير.بازار,P1Y,1422365532828-551089,domain.create,,xn----0mcdcn4aa1lra1d.xn--mgbab2bd
+467,reg-462972,deposit,,795.00,2014-12-31T11:00:00.0Z,2015-01-20T15:32:15.980Z,none,,,,CP-150120153143-275,account.deposit,,
+
