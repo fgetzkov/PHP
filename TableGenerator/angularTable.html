@@ -1,73 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-table, th , td  {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  padding: 5px;
-}
-table tr:nth-child(odd)	{
-  background-color: #f1f1f1;
-}
-table tr:nth-child(even) {
-  background-color: #ffffff;
-}
-.animate-enter {
-	-webkit-transition: 1s linear all; /* Chrome */
-	transition: 1s linear all;
-	opacity: 0;
-}
-.animate-enter.animate-enter-active {
-	opacity: 1;
-}
-.hoverTable td{
-		padding:7px; border:#1CAD7E 1px solid;
-	}
-.hoverTable{
-		width:100%;
-		border-collapse:collapse;
-	}
-    .hoverTable tr:hover {
-          background-color: #CADFAA;
-    }</style>
 <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script type='text/javascript' src="x2js-v1.1.5/xml2json.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div ng-app="tableGenerator" ng-controller="tableController">
+<div ng-app="tableGenerator">
 	<input type="checkbox" ng-model="clicked"> <b>Reverse  the table.</b>
-<table class="hoverTable">
+<div ng-controller="JsonController" ng-hide="clicked">
+<table class="hoverTable" id="table">
 	<tr>
+    <td><b>Gravatar</b></td>
 		<td><b>ID</b></td>
-		<td><b>User Name</b></td>
 		<td><b>First Name</b></td>
 		<td><b>Last Name</b></td>
-		<td><b>Email</b></td>
 		<td><b>Phone Number</b></td>
+    <td><b>Email</b></td>
 	</tr>
-  <tr ng-repeat="x in users | orderBy:'Id'" ng-hide="clicked">
+  <tr ng-repeat="x in jsonUsers | orderBy:'Id'" ng-hide="clicked">
+    <td><img src="http://www.gravatar.com/avatar/{{x.gravatar}}?s=48&d=identicon"></td>
     <td>{{ x.Id }}</td>
-    <td>{{ x.UserName }}</td>
     <td>{{ x.FirstName }}</td>
     <td>{{ x.LastName }}</td>
-    <td>{{ x.Email }}</td>
-    <td>{{ x.PhoneNumber }}</td>
-	</tr>
-  <tr ng-repeat="x in users | orderBy:'-Id'" ng-show="clicked">
-    <td>{{ x.Id }}</td>
-    <td>{{ x.UserName }}</td>
-    <td>{{ x.FirstName }}</td>
-    <td>{{ x.LastName }}</td>
-    <td>{{ x.Email }}</td>
-    <td>{{ x.PhoneNumber }}</td>
+   <td>{{ x.PhoneNumber }}</td>
+   <td>{{ x.Email }}</td>
 	</tr>
 </table>
 </div>
+<div ng-controller="XMLController" ng-show="clicked">
+<table class="hoverTable">
+  <tr>
+    <td><b>Gravatar</b></td>
+    <td><b>ID</b></td>
+    <td><b>First Name</b></td>
+    <td><b>Last Name</b></td>
+    <td><b>Phone Number</b></td>
+    <td><b>Email</b></td>
+
+  </tr>
+  <tr ng-repeat="x in xmlUsers">
+    <td><img src="http://www.gravatar.com/avatar/{{x.gravatar}}?s=48&d=identicon"></td>
+    <td>{{ x.Id }}</td>
+    <td>{{ x.FirstName }}</td>
+    <td>{{ x.LastName }}</td>
+   <td>{{ x.PhoneNumber }}</td>
+   <td>{{ x.Email }}</td>
+  </tr>
+</table>
+</div>
+<a href="http://localhost/ICN/ExportDB.php?token=gryub67giriy&type=csv" download="download">Download CSV</a>
+</div>
 <script>
 var app = angular.module('tableGenerator', []);
-app.controller('tableController', function($scope, $http) {
-    $http.get("http://localhost:8080/ExportDB.php")
-    .success(function (data) {$scope.users =  data.title;});
+app.controller('JsonController', function($scope, $http) {
+    $http.get("http://localhost/ICN/ExportDB.php?token=gryub67giriy&type=json")
+    .success(function (data) {
+      $scope.jsonUsers =  data.title;
+    });
+});
+app.controller('XMLController', function($scope, $http) {
+    $http.get("http://localhost/ICN/ExportDB.php?token=gryub67giriy&type=xml")
+    .success(function (data) {
+      var x2js = new X2JS();
+      var jsonData = x2js.xml_str2json(data);
+      $scope.xmlUsers = jsonData.root;
+    });
 });
 </script>
 </body>

@@ -1,0 +1,33 @@
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd)	{
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+.animate-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+.animate-enter.animate-enter-active {
+	opacity: 1;
+}
+.hoverTable td{
+		padding:7px; border:#1CAD7E 1px solid;
+	}
+.hoverTable{
+		width:100%;
+		border-collapse:collapse;
+	}
+  .button{
+    background-color: #1CAD7E;
+  }
+    .hoverTable tr:hover {
+          background-color: #CADFAA;
+    }</style>
