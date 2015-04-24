@@ -1,11 +1,15 @@
 <?php
 require 'vendor/autoload.php';
 require 'CsvIterator.php';
+require '/../../authentication.php';
 use True\Punycode;
 class UploadHandler
 {
 
     protected $options;
+
+    protected $searchColumn = "objectName";
+    protected $replaceColumn = "PunyCode";
 
     // PHP File Upload error message codes:
     // http://php.net/manual/en/features.file-upload.errors.php
@@ -1090,8 +1094,9 @@ class UploadHandler
             while (($line = fgetcsv($fileRead)) !== FALSE) {
               //$line is an array of the csv elements
               array_push($csv,$line);
-            }
-            $key = array_search('objectName', $csv[0]);
+            };
+
+            $key = array_search($this->searchColumn, $csv[0]);
             fclose($fileRead);
 
             $file_output="../../uploads/temp.csv";
@@ -1099,8 +1104,14 @@ class UploadHandler
             $Punycode = new Punycode();
             $csvIterator = new CsvIterator($file_path);
             foreach ($csvIterator as $row =>$data) {
-                $data[] = $Punycode->encode($data[$key]);
+                $newRow = $Punycode->encode($data[$key]);
+                if(is_array($data)) {
+                array_splice($data, $key + 1 , 0, $newRow);
+                if($data[$key+1] == $this->searchColumn) {
+                    $data[$key+1] = $this->replaceColumn;
+                }
                 fputcsv($fp, $data);
+            }
             }
 
             fclose($fp);
